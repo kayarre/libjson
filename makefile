@@ -150,16 +150,17 @@ objdir           = Objects
 
 
 # Variables
-prefix          ?= /usr
+prefix          ?= /home/ksansom/build/jsoncpp/install
 exec_prefix     ?= $(prefix)
 libdir          ?= lib
 includedir      ?= include
 srcdir          ?= _internal/Source
+depdir          ?= _internal/Dependencies
 CXX             ?= c++
 AR              ?= ar
 PIC             ?= PIC
 BUILD_TYPE      ?= "default"
-SHARED          ?= "1"
+SHARED          ?= "0"
 
 
 # Internal Variables
@@ -266,7 +267,8 @@ install_headers: banner
 	cp -r ./$(srcdir)/JSONDefs $(include_path)/$(libname_hdr)/$(srcdir)
 	chmod -R a+r $(include_path)/$(libname_hdr)
 	find  $(include_path)/$(libname_hdr) -type d -exec chmod a+x {} \;
-	cp -rv $(srcdir)/Dependencies/ $(include_path)/$(libname_hdr)/$(srcdir)
+	mkdir -p $(include_path)/$(libname_hdr)/$(depdir)
+	cp -rv ./$(depdir)/ $(include_path)/$(libname_hdr)/$(depdir)
 	@echo "Install header files: Done."
 
 clean: banner
@@ -311,28 +313,28 @@ test:
 	_internal/Source/JSONNode_Mutex.cpp		_internal/Source/JSONNode.cpp			_internal/Source/JSONWorker.cpp \
 	_internal/Source/JSONWriter.cpp			_internal/Source/libjson.cpp			_internal/Source/JSONValidator.cpp \
 	_internal/Source/JSONStream.cpp			_internal/Source/JSONAllocator.cpp \
-	_internal/TestSuite/TestSuite2/JSON_Base64/json_decode64.cpp \
-	_internal/TestSuite/TestSuite2/JSON_Base64/json_encode64.cpp \
-	_internal/TestSuite/TestSuite2/JSONDebug/JSON_ASSERT_SAFE.cpp \
-	_internal/TestSuite/TestSuite2/JSONDebug/JSON_ASSERT.cpp \
-	_internal/TestSuite/TestSuite2/JSONDebug/JSON_FAIL_SAFE.cpp \
-	_internal/TestSuite/TestSuite2/JSONDebug/JSON_FAIL.cpp \
-	_internal/TestSuite/TestSuite2/JSONGlobals/jsonSingleton.cpp \
-	_internal/TestSuite/TestSuite2/JSONValidator/isValidArray.cpp \
-	_internal/TestSuite/TestSuite2/JSONValidator/isValidMember.cpp \
-	_internal/TestSuite/TestSuite2/JSONValidator/isValidNamedObject.cpp \
-	_internal/TestSuite/TestSuite2/JSONValidator/isValidNumber.cpp \
-	_internal/TestSuite/TestSuite2/JSONValidator/isValidObject.cpp \
-	_internal/TestSuite/TestSuite2/JSONValidator/isValidPartialRoot.cpp \
-	_internal/TestSuite/TestSuite2/JSONValidator/isValidRoot.cpp \
-	_internal/TestSuite/TestSuite2/JSONValidator/isValidString.cpp \
-	_internal/TestSuite/TestSuite2/JSONValidator/securityTest.cpp \
-	_internal/TestSuite/TestSuite2/NumberToString/_areFloatsEqual.cpp \
-	_internal/TestSuite/TestSuite2/NumberToString/_atof.cpp \
-	_internal/TestSuite/TestSuite2/NumberToString/_ftoa.cpp \
-	_internal/TestSuite/TestSuite2/NumberToString/_itoa.cpp \
-	_internal/TestSuite/TestSuite2/NumberToString/_uitoa.cpp \
-	_internal/TestSuite/TestSuite2/NumberToString/getLenSize.cpp \
-	_internal/TestSuite/TestSuite2/NumberToString/isNumeric.cpp \
+	_internal/TestSuite2/JSON_Base64/json_decode64.cpp \
+	_internal/TestSuite2/JSON_Base64/json_encode64.cpp \
+	_internal/TestSuite2/JSONDebug/JSON_ASSERT_SAFE.cpp \
+	_internal/TestSuite2/JSONDebug/JSON_ASSERT.cpp \
+	_internal/TestSuite2/JSONDebug/JSON_FAIL_SAFE.cpp \
+	_internal/TestSuite2/JSONDebug/JSON_FAIL.cpp \
+	_internal/TestSuite2/JSONGlobals/jsonSingleton.cpp \
+	_internal/TestSuite2/JSONValidator/isValidArray.cpp \
+	_internal/TestSuite2/JSONValidator/isValidMember.cpp \
+	_internal/TestSuite2/JSONValidator/isValidNamedObject.cpp \
+	_internal/TestSuite2/JSONValidator/isValidNumber.cpp \
+	_internal/TestSuite2/JSONValidator/isValidObject.cpp \
+	_internal/TestSuite2/JSONValidator/isValidPartialRoot.cpp \
+	_internal/TestSuite2/JSONValidator/isValidRoot.cpp \
+	_internal/TestSuite2/JSONValidator/isValidString.cpp \
+	_internal/TestSuite2/JSONValidator/securityTest.cpp \
+	_internal/TestSuite2/NumberToString/_areFloatsEqual.cpp \
+	_internal/TestSuite2/NumberToString/_atof.cpp \
+	_internal/TestSuite2/NumberToString/_ftoa.cpp \
+	_internal/TestSuite2/NumberToString/_itoa.cpp \
+	_internal/TestSuite2/NumberToString/_uitoa.cpp \
+	_internal/TestSuite2/NumberToString/getLenSize.cpp \
+	_internal/TestSuite2/NumberToString/isNumeric.cpp \
 	$(CXXFLAGS) -o ./testapp
 	./testapp
